@@ -20,17 +20,20 @@ import pandas
 # Keyword Method with iterrows()
 # {new_key:new_value for (index, row) in df.iterrows()}
 
-
-
-
-
-
 data = pandas.read_csv("nato_phonetic_alphabet.csv")
 
 # Create a dictionary in this format:
 phonetic_dict = {row.letter: row.code for (index, row) in data.iterrows()}
 
-# Create a list of the phonetic code words from a word that the user inputs.
-user_input = input("Enter a word: ").upper()
-phonetic_list = [phonetic_dict[letter] for letter in user_input if letter in phonetic_dict]
-print(phonetic_list)
+def generate_phonetic():
+    
+    # Create a list of the phonetic code words from a word that the user inputs.
+    user_input = input("Enter a word: ").upper()
+    
+    try:
+        phonetic_list = [phonetic_dict[letter] for letter in user_input if letter in phonetic_dict]
+    except KeyError:
+        print("Sorry only letters in alphabets please.")
+        generate_phonetic()
+    else:
+        print(phonetic_list)
